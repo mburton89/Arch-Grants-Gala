@@ -18,6 +18,9 @@ public class ARTapToPlaceObject : MonoBehaviour
 
     bool hasPlacedObject = false;
 
+    public MapZoomController mapController;
+    private GameObject placedMap;
+
     void Start()
     {
         arOrigin = FindObjectOfType<ARRaycastManager>();
@@ -73,8 +76,9 @@ public class ARTapToPlaceObject : MonoBehaviour
 
     void PlaceObject()
     {
-        Instantiate(objectToPlace, placementPose.position, placementPose.rotation);
+        placedMap = Instantiate(objectToPlace, placementPose.position, placementPose.rotation);
         hasPlacedObject = true;
         placementIndicator.transform.localScale = Vector3.zero;
+        mapController.SendMessage("getPlacedMap", placedMap);
     }
 }
